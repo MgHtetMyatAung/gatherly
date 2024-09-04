@@ -5,7 +5,7 @@ import { Button } from "../ui/button"
 
 export default function Header() {
     return (
-        <header className="w-[1200px] mx-auto py-6 grid grid-cols-3">
+        <header className="max-w-[1200px] w-full mx-auto p-6 grid grid-cols-3">
             <div className="flex items-center">
             <Link href="/">
             <Image
