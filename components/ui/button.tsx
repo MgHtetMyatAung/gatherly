@@ -1,7 +1,7 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const button = cva("rounded transition-color duration-300 ease-out", {
+const button = cva("rounded transition-color duration-150 ease-out", {
   variants: {
     intent: {
       primary: [
@@ -14,12 +14,13 @@ const button = cva("rounded transition-color duration-300 ease-out", {
         "text-white",
         "border",
         "border-blue-500",
+        "hover:bg-blue-500"
       ],
     },
     size: {
       small: ["text-sm", "py-1", "px-2"],
       medium: ["text-base", "py-2", "px-4"],
-      big: ["text-lg", "py-3", "px-5"]
+      lg: ["text-lg", "py-3", "px-5"]
     },
   },
   compoundVariants: [{ intent: "primary", size: "medium"}],
