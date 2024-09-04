@@ -19,6 +19,7 @@ export default function Nav() {
         const isActive = pathname === link.href;
         return (
           <Link
+          key={link.label}
             href={link.href}
             className={cn(
               "dark:text-neutral-400 hover:dark:text-white transition-colors duration-150 ease-out relative",
