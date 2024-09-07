@@ -1,151 +1,100 @@
-"use client";
+"use client"
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/theme-button';
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().regex(/^[0-9]{11}$/, "Invalid phone number, should be 11 digits"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+};
 
-type FormInputs = z.infer<typeof formSchema>;
-
-export default function RegisterForm() {
+const RegisterForm = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-  const router = useRouter();
-  const form = useForm<FormInputs>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const onSubmit = async (data: FormInputs) => {
+  const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
-      const response = await fetch('https://codemal.newwaymm.com/api/register', {
+      const response = await fetch('https://codemal.newwaymm.com/api/event/1/form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-
+      
       if (!response.ok) {
         throw new Error('Failed to submit form');
       }
-
-      const result = await response.json();
-      if (result.token) {
-        setToken(result.token);
-        localStorage.setItem('authToken', result.token);
-        console.log('Token stored successfully');
-        router.push('/');
-      }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      // Handle error (e.g., show error message)
+      setSubmitError('An error occurred while submitting the form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-64">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="name">Name</Label>
+        <Input
+          type="text"
+          id="name"
+          {...register('name', { required: 'Name is required' })}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="example@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          type="email"
+          id="email"
+          {...register('email', { 
+            required: 'Email is required',
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Invalid email address',
+            }
+          })}
         />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone</FormLabel>
-              <FormControl>
-                <Input type="tel" placeholder="1234567890" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="phone">Phone</Label>
+        <Input
+          type="tel"
+          id="phone"
+          {...register('phone', { required: 'Phone number is required' })}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        {errors.phone && <p className="text-sm text-red-600">{errors.phone.message}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="dateOfBirth">Date of Birth</Label>
+        <Input
+          type="date"
+          id="dateOfBirth"
+          {...register('dateOfBirth', { required: 'Date of birth is required' })}
         />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? 'Signing up...' : 'Sign up'}
-        </Button>
-      </form>
-    </Form>
+        {errors.dateOfBirth && <p className="text-sm text-red-600">{errors.dateOfBirth.message}</p>}
+      </div>
+
+      {submitError && <p className="text-sm text-red-600">{submitError}</p>}
+
+      <Button type="submit" disabled={isSubmitting} size="lg" intent="primary">
+        {isSubmitting ? 'Registering...' : 'Register'}
+      </Button>
+    </form>
   );
-}
+};
+
+export default RegisterForm;

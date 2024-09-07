@@ -1,7 +1,9 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
+import ReactQueryProvider from "@/components/react-query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +17,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-return (
+  return (
     <html lang="en" className="dark scroll-smooth">
       <body className={`${inter.className} dark:bg-black dark:text-white flex flex-col items-center`}>
-        <Header />
-        {children}
+        <ReactQueryProvider>
+          <Header />
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );

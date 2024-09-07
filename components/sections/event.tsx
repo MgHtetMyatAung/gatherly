@@ -1,16 +1,16 @@
 "use client"
 
-import { useGetEvents } from "@/lib/hooks/useGetEvents";
+import { useGetEvents } from "@/lib/hooks/use-get-events";
 import { TEvent } from "@/lib/types";
 import EventCard from "../event-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function Event() {
   const [activeCategory, setActiveCategory] = useState("All");
   const categories = ["All", "Ai", "UiUx", "Web Development", "Cloud"];
 
-  const { events, isLoading, isError } = useGetEvents();
+  const { data, isLoading, isError } = useGetEvents();
 
   return (
     <section id="event" className="max-w-[1200px] w-full mt-12 px-6">
@@ -37,8 +37,8 @@ export default function Event() {
           <div className="col-span-full text-center">Loading events...</div>
         ) : isError ? (
           <div className="col-span-full text-center text-red-500">Error loading events. Please try again later.</div>
-        ) : events && events.data ? (
-          events.data.map((event: TEvent) => (
+        ) : data ? (
+          data.events.data.map((event: TEvent) => (
             <EventCard
               key={event.id}
               id={event.id}
