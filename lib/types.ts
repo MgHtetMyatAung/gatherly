@@ -1,0 +1,20 @@
+export type TEvent = {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    start_date: string;
+    end_date: string;
+    org_name: string;
+    org_email: string;
+    org_phone: string;
+    org_logo: string;
+    category_id: number | null;
+    limit: number;
+    location: string;
+    plaform: string;
+    created_by: number | null;
+    created_at: string;
+    updated_at: string;
+    rating: number | null;
+};

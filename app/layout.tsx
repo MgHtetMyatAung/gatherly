@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  return (
+}) {
+return (
     <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.className} dark:bg-neutral-950 dark:text-white flex flex-col items-center`}>
-        <Header/>
+      <body className={`${inter.className} dark:bg-black dark:text-white flex flex-col items-center`}>
+        <Header />
         {children}
       </body>
     </html>
