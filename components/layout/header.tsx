@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-import { Button } from "../ui/theme-button";
+import { ThemeButton } from "../ui/theme-button";
 import Nav from "../nav";
 import { getToken, removeToken } from "@/lib/helper";
 
@@ -44,15 +44,15 @@ export default function Header() {
       </div>
       <div className=" flex justify-end gap-x-2.5">
         {isLoggedIn ? (
-          <Button onClick={logoutHandle}>Log out</Button>
+          <ThemeButton onClick={logoutHandle}>Log out</ThemeButton>
         ) : (
           <>
-            <Button>
+            <ThemeButton>
               <Link href="/login">Log In</Link>
-            </Button>
-            <Button intent="secondary">
+            </ThemeButton>
+            <ThemeButton intent="secondary">
               <Link href="/signup">Sign Up</Link>
-            </Button>
+            </ThemeButton>
           </>
         )}
       </div>

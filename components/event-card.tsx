@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { Button } from "./ui/theme-button";
+import { ThemeButton } from "./ui/theme-button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ export default function EventCard({ id, title, description, image, startDate, ra
                 <p className=" text-neutral-500 line-clamp-3">{description}</p>
             <div className="flex justify-between items-center">
                 <div className=" text-sm text-neutral-200">{startDate}</div>
-                <Button size="small">Register</Button>
+                <ThemeButton size="small">Register</ThemeButton>
             </div>
         </Link>
     )

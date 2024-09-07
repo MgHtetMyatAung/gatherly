@@ -33,7 +33,7 @@ const button = cva("rounded transition-color duration-150 ease-out", {
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button>;
 
-export const Button: React.FC<ButtonProps> = ({
+export const ThemeButton: React.FC<ButtonProps> = ({
   className,
   intent,
   size,

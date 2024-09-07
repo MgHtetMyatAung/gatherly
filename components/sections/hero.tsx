@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "../ui/theme-button";
+import { ThemeButton } from "../ui/theme-button";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
@@ -16,7 +16,7 @@ export default function Hero() {
             <div className="relative z-10 flex flex-col items-center gap-y-5">
                 <h1 className=" text-4xl font-semibold">Get Become A Speaker For Next Generation</h1>
                 <p className=" text-xl font-medium text-neutral-400">Share your knowledge and experience.</p>
-                <Button size="lg">Join Now</Button>
+                <ThemeButton size="lg">Join Now</ThemeButton>
             </div>
             <Link href="#events" className="flex flex-col items-center  absolute bottom-4 text-yellow-500 ">
             <ChevronDown size="96" strokeWidth="1" className=" animate-bounce"/>

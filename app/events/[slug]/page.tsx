@@ -2,8 +2,9 @@
 
 import { useGetEventById } from "@/lib/hooks/use-get-event-by-id";
 import Image from "next/image";
-import { Button } from "@/components/ui/theme-button";
+import { ThemeButton } from "@/components/ui/theme-button";
 import ProtectedRoute from "@/components/protected-route";
+import Link from "next/link";
 
 export default function Event({ params }: { params: { slug: string } }) {
 
@@ -24,7 +25,11 @@ export default function Event({ params }: { params: { slug: string } }) {
                 <h1 className="text-3xl font-bold mb-2">{data?.event.title}</h1>
                 <div className=" text-xl font-medium">{data?.event.plaform ? `Platform - ${data?.event.plaform}` : `Location - ${data?.event.location}`}</div>
                 <p className="text-gray-500">{data?.event.description}</p>
-                <Button size="lg" intent="secondary">Register</Button>
+                <ThemeButton size="lg" intent="secondary">
+                    <Link href={`/events/${params.slug}/register`}>
+                        Register
+                    </Link>
+                </ThemeButton>
             </div>
         </div>
         </ProtectedRoute>

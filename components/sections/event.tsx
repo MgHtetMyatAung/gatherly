@@ -3,7 +3,7 @@
 import { useGetEvents } from "@/lib/hooks/use-get-events";
 import { TEvent } from "@/lib/types";
 import EventCard from "../event-card";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function Event() {
