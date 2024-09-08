@@ -3,9 +3,17 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { getToken } from "@/lib/helper";
 
 export default function Nav() {
   const pathname = usePathname();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = getToken();
+    setIsAuthenticated(!!token);
+  }, []);
 
   const navLinks = [
     { href: "/", label: "Events" },
@@ -13,13 +21,20 @@ export default function Nav() {
     { href: "/contact", label: "Contact Us" },
   ];
 
+  const authenticatedLinks = [
+    ...navLinks,
+    { href: "/events/create", label: "Create Event" },
+  ];
+
+  const currentLinks = isAuthenticated ? authenticatedLinks : navLinks;
+
   return (
     <nav className=" space-x-12 flex items-center">
-      {navLinks.map((link) => {
+      {currentLinks.map((link) => {
         const isActive = pathname === link.href;
         return (
           <Link
-          key={link.label}
+            key={link.label}
             href={link.href}
             className={cn(
               "dark:text-neutral-400 hover:dark:text-white transition-colors duration-150 ease-out relative",

@@ -11,3 +11,9 @@ export const setToken = (token: string) => {
   export const removeToken = () => {
     sessionStorage.removeItem('token');
   };
+
+export const capitalize = (str: string): string => {
+  if (str.length === 0) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+

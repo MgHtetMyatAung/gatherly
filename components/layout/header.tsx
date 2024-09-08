@@ -20,7 +20,7 @@ export default function Header() {
   useEffect(() => {
     const token = getToken();
     setIsLoggedIn(!!token);
-  }, []);
+  }, [pathname]);
 
   const logoutHandle = () => {
     removeToken();
