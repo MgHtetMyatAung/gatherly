@@ -7,10 +7,11 @@ import Image from "next/image";
 import { ThemeButton } from "../ui/theme-button";
 import Nav from "../nav";
 import { getToken, removeToken } from "@/lib/helper";
+import ProfileDropdown from "../profile";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const router = useRouter();
+
   const pathname = usePathname();
 
   const isAuthRoute = ["/login", "/signup", "/forgot-password"].includes(
@@ -22,18 +23,12 @@ export default function Header() {
     setIsLoggedIn(!!token);
   }, [pathname]);
 
-  const logoutHandle = () => {
-    removeToken();
-    setIsLoggedIn(false);
-    router.push("/login");
-  };
-
   if (isAuthRoute) {
     return null;
   }
 
   return (
-    <header className="max-w-[1200px] w-full mx-auto p-6 grid grid-cols-3">
+    <header className="max-w-[1200px] w-full mx-auto p-6 flex justify-between">
       <div className="flex items-center">
         <Link href="/">
           <Image src="/gatherly.svg" width="100" height="1" alt="Gatherly" />
@@ -44,7 +39,7 @@ export default function Header() {
       </div>
       <div className=" flex justify-end gap-x-2.5">
         {isLoggedIn ? (
-          <ThemeButton onClick={logoutHandle}>Log out</ThemeButton>
+          <ProfileDropdown/>
         ) : (
           <>
             <ThemeButton>

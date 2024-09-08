@@ -6,7 +6,7 @@ import { ThemeButton } from "@/components/ui/theme-button";
 import ProtectedRoute from "@/components/protected-route";
 import Link from "next/link";
 
-export default function Event({ params }: { params: { slug: string } }) {
+export default function EventSection({ params }: { params: { slug: string } }) {
 
     const { data, isLoading, isError } = useGetEventById(params.slug);
 
