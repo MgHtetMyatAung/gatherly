@@ -1,12 +1,9 @@
-
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { inter } from "@/lib/font";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import ReactQueryProvider from "@/components/react-query-provider";
 import { Toaster } from "@/components/ui/toaster";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Gatherly",
@@ -19,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.className} dark:bg-black dark:text-white flex flex-col items-center`}>
+    <html lang="en">
+      <body className={`${inter.className} bg-gray1 text-gray12`}>
         <ReactQueryProvider>
           <Header />
           {children}

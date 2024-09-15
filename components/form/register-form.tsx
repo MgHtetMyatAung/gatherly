@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,7 +29,6 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
 import { toast } from "@/lib/hooks/use-toast";
-import { getToken } from "@/lib/helper";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -60,19 +59,16 @@ const RegisterForm = () => {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const response = await api.post(`/event/${slug}/form`, data);
-
-      if (response.status !== 200) {
-        throw new Error("Failed to submit form");
-      }
+      await api.post(`/event/${slug}/form`, data);
 
       toast({
         title: "Registration Successful",
         description: "You have successfully registered for the event.",
       });
 
-      router.push(`/events/${slug}`);
+      router.push(`/events/${slug}`)
     } catch (error) {
+
       setSubmitError(
         "An error occurred while submitting the form. Please try again."
       );
@@ -100,7 +96,6 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="email"
@@ -114,7 +109,6 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="phone"

@@ -11,7 +11,6 @@ export default function EventSection({ params }: { params: { slug: string } }) {
     const { data, isLoading, isError } = useGetEventById(params.slug);
 
     return (
-        <ProtectedRoute>
         <div className="max-w-[1200px] w-full mx-auto px-4 py-10 flex gap-x-8">
             <div className="aspect-square relative rounded-lg overflow-hidden w-full max-w-[450px]">
                 <Image 
@@ -32,6 +31,5 @@ export default function EventSection({ params }: { params: { slug: string } }) {
                 </ThemeButton>
             </div>
         </div>
-        </ProtectedRoute>
     );
 }

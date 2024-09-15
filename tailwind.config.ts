@@ -1,4 +1,8 @@
 import type { Config } from "tailwindcss";
+import {
+  grayDark,
+  violetDark
+} from '@radix-ui/colors';
 
 const config: Config = {
   darkMode: ["selector"],
@@ -9,12 +13,15 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+      colors: {
+        ...grayDark,
+        ...violetDark,
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-  		colors: {}
   	}
   },
   plugins: [require("tailwindcss-animate")],
