@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { getToken } from "@/lib/helper";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +33,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="px-12 py-4 border-b border-b-gray3 flex justify-between items-center">
+    <header className="px-12 py-4 border-b border-b-gray3 flex justify-between items-center sticky bg-gray1/75 backdrop-blur-sm top-0">
       <div className="flex items-center">
         <Link href="/" className="text-xl font-bold mr-9">
         Logo
@@ -44,7 +45,10 @@ export default function Header() {
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className="text-gray10 hover:text-gray12 transition-colors duration-150 text-[15px]"
+                  className={cn(
+                    "text-gray10 hover:text-gray12 transition-colors duration-150 text-[15px]",
+                    {"text-gray12": pathname === item.href}
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -54,7 +58,7 @@ export default function Header() {
         </nav>
       </div>
       <div className=" space-x-2">
-          <Link href="/signup" className=" py-1 px-3 text-gray11 hover:text-gray12 transition-colors duration-150 font-medium">
+          <Link href="/login" className=" py-1 px-3 text-gray11 hover:text-gray12 transition-colors duration-150 font-medium">
             Log in
           </Link>
           <Link href="/signup">

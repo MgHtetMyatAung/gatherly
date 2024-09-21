@@ -10,6 +10,14 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "via.placeholder.com"
+            },
+            {
+                protocol: "https",
+                hostname: "events.xebia.com"
+            },
+            {
+                protocol: "https",
+                hostname: "static-00.iconduck.com"
             }
         ]
     }
